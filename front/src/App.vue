@@ -1,9 +1,8 @@
 <template>
   <v-app>
-    <v-tabs v-model="tab">
-      <v-tabs-slider></v-tabs-slider>
-      <v-tab href="#aimai">あいまい</v-tab>
-      <v-tab href="#shuzoku">種族値</v-tab>
+    <v-tabs v-model="tab" color="cyan" dark slider-color="yellow">
+      <v-tab ripple href="#aimai">あいまい</v-tab>
+      <v-tab ripple href="#shuzoku">種族値</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item value="aimai"></v-tab-item>

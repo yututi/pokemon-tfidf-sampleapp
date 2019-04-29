@@ -2,8 +2,8 @@ export class Pokemon {
     constructor(init:Partial<Pokemon>) {
         Object.assign(this, init);
     }
+    no!: number;
     name!: string;
-    imgUrl!: string;
     hp!: number;
     attack!: number;
     defense!: number;

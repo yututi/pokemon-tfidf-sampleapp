@@ -1,12 +1,12 @@
 module.exports = {
     publicPath:'/',
-    outputDir:'../server/static/',
+    outputDir:'../back/web/',
     assetsDir:'assets',
     pages: {
         index: {
-            entry: 'src/main.ts', // エントリーポイントとなるjs
-            template: 'public/index.html', // テンプレートのHTML
-            filename: 'index.html' // build時に出力されるファイル名
+            entry: 'src/main.ts',
+            template: 'public/index.html',
+            filename: 'pokemon.html'
         }
     },
     devServer: {

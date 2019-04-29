@@ -1,27 +1,39 @@
 <template>
   <v-container fluid grid-list-lg>
-    <div class="display-3 text-xs-center mb-3">種族値類似検索</div>
-    <v-layout row wrap>
-      <v-flex xs2 md1>
-        <div class="stat-label">HP</div>
-        <div class="stat-label">こうげき</div>
-        <div class="stat-label">ぼうぎょ</div>
-        <div class="stat-label">とくこう</div>
-        <div class="stat-label">とくぼう</div>
-        <div class="stat-label">すばやさ</div>
-      </v-flex>
-      <v-flex xs10 md6>
-        <v-slider v-model="hp" max="200" thumb-label="always" @input="onInput"></v-slider>
-        <v-slider v-model="attack" max="200" thumb-label="always" @input="onInput"></v-slider>
-        <v-slider v-model="defense" max="200" thumb-label="always" @input="onInput"></v-slider>
-        <v-slider v-model="spAtk" max="200" thumb-label="always" @input="onInput"></v-slider>
-        <v-slider v-model="spDef" max="200" thumb-label="always" @input="onInput"></v-slider>
-        <v-slider v-model="speed" max="200" thumb-label="always" @input="onInput"></v-slider>
+    <div class="display-3 text-xs-center mb-3">種族値検索</div>
+    <v-layout row wrap style="max-width:1000px;margin:auto;">
+      <v-flex xs12 md6>
+        <v-subheader>検索条件</v-subheader>
+        <div class="stat-slider">
+          <label class="stat-label">HP</label>
+          <v-slider v-model="hp" max="200" thumb-label="always" @input="onInput"></v-slider>
+        </div>
+        <div class="stat-slider">
+          <label class="stat-label">こうげき</label>
+          <v-slider v-model="attack" max="200" thumb-label="always" @input="onInput"></v-slider>
+        </div>
+        <div class="stat-slider">
+          <label class="stat-label">ぼうぎょ</label>
+          <v-slider v-model="defence" max="200" thumb-label="always" @input="onInput"></v-slider>
+        </div>
+        <div class="stat-slider">
+          <label class="stat-label">とくこう</label>
+          <v-slider v-model="spAtk" max="200" thumb-label="always" @input="onInput"></v-slider>
+        </div>
+        <div class="stat-slider">
+          <label class="stat-label">とくぼう</label>
+          <v-slider v-model="spDef" max="200" thumb-label="always" @input="onInput"></v-slider>
+        </div>
+        <div class="stat-slider">
+          <label class="stat-label">すばやさ</label>
+          <v-slider v-model="speed" max="200" thumb-label="always" @input="onInput"></v-slider>
+        </div>
       </v-flex>
       <v-flex xs12 md6>
-        <v-card v-for="pokemon in pokeList" :key="pokemon.name">
-          <v-avatar tile="false">
-            <img :src="pokemon.imgUrl" alt="avatar">
+        <v-subheader>検索結果</v-subheader>
+        <v-card v-for="(pokemon, index) in pokeList" :key="index">
+          <v-avatar :tile="false">
+            <img :src="getUri(pokemon)" alt="avatar">
           </v-avatar>
           {{pokemon.name}}
         </v-card>
@@ -34,38 +46,56 @@
 import { Component, Vue } from "vue-property-decorator";
 import { debounce } from "lodash";
 import { Pokemon } from "@/types";
+import axios from "axios";
+
+let _debouncedFetch = () => {};
+
 @Component
 export default class BaseStats extends Vue {
   hp: number = 100;
   attack: number = 100;
-  defense: number = 100;
+  defence: number = 100;
   spAtk: number = 100;
   spDef: number = 100;
   speed: number = 100;
   pokeList: Array<Pokemon> = [];
+
   onInput() {
-    debounce(this.fetchPokeList, 300, { maxWait: 1000 });
+    _debouncedFetch();
   }
   async fetchPokeList() {
-    const response = await fetch(`/similar_poke?\
-        hp=${this.hp}&\
-        attack=${this.attack}&\
-        defense=${this.defense}&\
-        spAtk=${this.spAtk}&\
-        spDef=${this.spDef}&\
-        speed=${this.speed}`);
-
-    if (response.ok) {
-      this.pokeList = await response.json();
-    }
-    throw new Error("fetch failed.");
+    axios
+      .get("api/similarStats", {
+        params: {
+          hp: this.hp,
+          attack: this.attack,
+          defence: this.defence,
+          spAttack: this.spAtk,
+          spDefence: this.spDef,
+          speed: this.speed
+        }
+      })
+      .then(response => {
+        this.pokeList = response.data;
+      });
+  }
+  getUri(pokemon: Pokemon): string {
+    const no = ("000" + pokemon.no).slice(-3);
+    return `/assets/pokemon/${no}MS.png`;
+  }
+  mounted() {
+    _debouncedFetch = debounce(this.fetchPokeList, 200);
   }
 }
 </script>
-<style>
-.stat-label {
-  margin-top: 16px;
-  height: 52px;
-  text-align: center;
+<style lang="stylus">
+.stat-slider {
+  display: flex;
+  align-items: center;
+
+  .stat-label {
+    width: 80px;
+    text-align: center;
+  }
 }
 </style>
