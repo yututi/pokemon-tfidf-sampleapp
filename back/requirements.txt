@@ -1,5 +1,10 @@
+autopep8==1.4.4
 Django==2.2
-django-filter==2.1.0
 djangorestframework==3.9.2
-pytz==2018.9
+mecab-python-windows==0.996.3
+numpy==1.16.3
+pycodestyle==2.5.0
+pytz==2019.1
+scikit-learn==0.20.3
+scipy==1.2.1
 sqlparse==0.3.0
