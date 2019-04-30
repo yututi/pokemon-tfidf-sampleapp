@@ -18,3 +18,5 @@ env.bak/
 venv.bak/
 
 web
+scraping/img
+_pokemon

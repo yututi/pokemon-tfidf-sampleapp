@@ -82,7 +82,7 @@ export default class StatsSearch extends Vue {
   }
   getUri(pokemon: Pokemon): string {
     const no = ("000" + pokemon.no).slice(-3);
-    return `/assets/pokemon/${no}MS.png`;
+    return `/assets/pokemon/${no}.jpg`;
   }
   mounted() {
     this._debouncedFetch = debounce(this.fetchPokeList, 200);
