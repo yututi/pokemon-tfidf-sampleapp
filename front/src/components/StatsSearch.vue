@@ -33,7 +33,7 @@
         <v-subheader>検索結果</v-subheader>
         <v-card v-for="(pokemon, index) in pokeList" :key="index">
           <v-avatar :tile="false">
-            <img :src="getUri(pokemon)" alt="avatar">
+            <img :src="getUri(pokemon)" alt="404">
           </v-avatar>
           {{pokemon.name}}
         </v-card>
@@ -48,7 +48,6 @@ import { debounce } from "lodash";
 import { Pokemon } from "@/types";
 import axios from "axios";
 
-let _debouncedFetch = () => {};
 
 @Component
 export default class BaseStats extends Vue {
@@ -60,8 +59,10 @@ export default class BaseStats extends Vue {
   speed: number = 100;
   pokeList: Array<Pokemon> = [];
 
+  _debouncedFetch:Function;
+
   onInput() {
-    _debouncedFetch();
+    this._debouncedFetch();
   }
   async fetchPokeList() {
     axios
@@ -84,7 +85,8 @@ export default class BaseStats extends Vue {
     return `/assets/pokemon/${no}MS.png`;
   }
   mounted() {
-    _debouncedFetch = debounce(this.fetchPokeList, 200);
+    this._debouncedFetch = debounce(this.fetchPokeList, 200);
+    this.fetchPokeList();
   }
 }
 </script>

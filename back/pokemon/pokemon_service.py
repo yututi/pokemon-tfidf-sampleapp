@@ -18,6 +18,7 @@ stats_keys = ['hp', 'attack', 'defence', 'spAttack', 'spDefence', 'speed']
 stats_all = [[data['stats'][key] for key in stats_keys] for data in pokemon_data]
 
 tagger = MeCab.Tagger(r"-Owakati")
+tagger.parse('')
 
 wakati_arr = []
 for data in pokemon_scraped_data:
@@ -31,15 +32,16 @@ x_all = vectorizer.fit_transform(wakati_arr)
 
 
 def fuzzyTermSearch(terms: str):
-    x = vectorizer(tagger.parse(terms))
-    similarities = cosine_similarity([x], x_all)[0]
+    x = vectorizer.transform([tagger.parse(terms)])
+    similarities = cosine_similarity(x, x_all)[0]
 
     found = []
     # 類似度昇順に並び替え、上位10件を抽出
-    top_indices = np.argsort(similarity)[::-1][:10]
+    top_indices = np.argsort(similarities)[::-1][:10]
     for index in top_indices:
-        no = pokemon_scraped_data[index]['no']
-        found.append(no_to_pokedata_dict[no])
+        if(similarities[index] > 0):
+            no = pokemon_scraped_data[index]['no']
+            found.append(no_to_pokedata_dict[no])
 
     return found
 
