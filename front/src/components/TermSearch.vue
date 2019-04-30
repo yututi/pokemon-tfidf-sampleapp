@@ -33,12 +33,12 @@ import axios from "axios";
 export default class TermSearch extends Vue {
   query: string = "";
   pokeList: Array<Pokemon> = [];
-  _window: Window;
-  _debouncedFetch: Function;
+  _window!: Window;
+  _debouncedFetch!: Function;
   onInput() {
     this._debouncedFetch();
   }
-  async fetchPokeList() {
+  fetchPokeList() {
     if (!this.query) {
       this.pokeList = [];
       return;

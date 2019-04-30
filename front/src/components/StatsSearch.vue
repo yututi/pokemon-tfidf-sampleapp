@@ -50,7 +50,7 @@ import axios from "axios";
 
 
 @Component
-export default class BaseStats extends Vue {
+export default class StatsSearch extends Vue {
   hp: number = 100;
   attack: number = 100;
   defence: number = 100;
@@ -59,12 +59,12 @@ export default class BaseStats extends Vue {
   speed: number = 100;
   pokeList: Array<Pokemon> = [];
 
-  _debouncedFetch:Function;
+  _debouncedFetch!:Function;
 
   onInput() {
     this._debouncedFetch();
   }
-  async fetchPokeList() {
+  fetchPokeList() {
     axios
       .get("api/similarStats", {
         params: {
