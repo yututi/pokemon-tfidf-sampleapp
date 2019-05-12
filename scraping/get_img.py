@@ -1,6 +1,3 @@
-"""
-  get all pokemon sprite from https://pokemondb.net/pokedex/national
-"""
 import requests
 from bs4 import BeautifulSoup
 
