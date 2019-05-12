@@ -1,6 +1,5 @@
 Django==2.2
 djangorestframework==3.9.2
-mecab-python-windows==0.996.3
 numpy==1.16.3
 pycodestyle==2.5.0
 pytz==2019.1
