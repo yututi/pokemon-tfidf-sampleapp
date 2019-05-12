@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from pokemon.views import SearchSimilarStatsView, FuzzyTermSearchView, index
+from pokemon.views import SearchSimilarStatsView, FuzzyTermSearchView
+from django.shortcuts import render
+
+def index(req):
+    return render(req, 'index.html')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('pokemon/api/similarStats', SearchSimilarStatsView.as_view()),
-    path('pokemon/api/fuzzyTerm', FuzzyTermSearchView.as_view()),
-    url(r'^pokemon/.*$', index),
+    # path('admin/', admin.site.urls),
+    path('api/similarStats', SearchSimilarStatsView.as_view()),
+    path('ai/fuzzyTerm', FuzzyTermSearchView.as_view()),
+    url(r'^.*$', index),
 ]
