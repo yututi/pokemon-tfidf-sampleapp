@@ -23,6 +23,8 @@ def index(req):
     return render(req, 'index.html')
 
 urlpatterns = [
-    url(r'^.*$', index),
 ]
 urlpatterns += pokemon_urls
+
+# histry api fallbackのために最後にマッチングさせる
+urlpatterns.append(url(r'^.*$', index))
