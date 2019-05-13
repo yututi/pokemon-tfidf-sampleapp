@@ -44,7 +44,7 @@ export default class TermSearch extends Vue {
       return;
     }
     axios
-      .get("api/fuzzyTerm", {
+      .get("pokemon/fuzzyTerm", {
         params: {
           query: this.query
         }
