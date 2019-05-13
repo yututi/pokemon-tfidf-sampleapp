@@ -13,18 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+# from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from pokemon.views import SearchSimilarStatsView, FuzzyTermSearchView
 from django.shortcuts import render
+from pokemon.urls import urlpatterns as pokemon_urls
 
 def index(req):
     return render(req, 'index.html')
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('api/similarStats', SearchSimilarStatsView.as_view()),
-    path('ai/fuzzyTerm', FuzzyTermSearchView.as_view()),
     url(r'^.*$', index),
 ]
+urlpatterns += pokemon_urls

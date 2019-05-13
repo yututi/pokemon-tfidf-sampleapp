@@ -66,7 +66,7 @@ export default class StatsSearch extends Vue {
   }
   fetchPokeList() {
     axios
-      .get("api/similarStats", {
+      .get("pokemon/similarStats", {
         params: {
           hp: this.hp,
           attack: this.attack,
