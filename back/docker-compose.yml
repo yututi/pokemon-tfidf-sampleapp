@@ -31,6 +31,7 @@ services:
       - LETSENCRYPT_EMAIL
     volumes:
       - ./back:/back
+      - appstatic:/app/static
     # links:
       # - db
     # depends_on:
@@ -41,7 +42,7 @@ services:
 #   dbdata:
 #     external: true
 
-# networks:
-#   default:
-#     external:
-#       name: proxy
+networks:
+  default:
+    external:
+      name: proxy
