@@ -38,20 +38,18 @@ export default class TermSearch extends Vue {
   onInput() {
     this._debouncedFetch();
   }
-  fetchPokeList() {
+  async fetchPokeList() {
     if (!this.query) {
       this.pokeList = [];
       return;
     }
-    axios
+    const response = await axios
       .get("pokemon/fuzzyTerm", {
         params: {
           query: this.query
         }
-      })
-      .then(response => {
-        this.pokeList = response.data;
       });
+    this.pokeList = response.data;
   }
   getUri(pokemon: Pokemon): string {
     const no = ("000" + pokemon.no).slice(-3);

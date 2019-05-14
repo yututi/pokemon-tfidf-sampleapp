@@ -64,8 +64,8 @@ export default class StatsSearch extends Vue {
   onInput() {
     this._debouncedFetch();
   }
-  fetchPokeList() {
-    axios
+  async fetchPokeList() {
+    const response = await axios
       .get("pokemon/similarStats", {
         params: {
           hp: this.hp,
@@ -75,10 +75,8 @@ export default class StatsSearch extends Vue {
           spDefence: this.spDef,
           speed: this.speed
         }
-      })
-      .then(response => {
-        this.pokeList = response.data;
       });
+    this.pokeList = response.data;
   }
   getUri(pokemon: Pokemon): string {
     const no = ("000" + pokemon.no).slice(-3);
