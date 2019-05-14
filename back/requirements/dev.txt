@@ -1,1 +1,2 @@
 -r common.txt
+mecab-python-windows==0.996.3

@@ -1,0 +1,9 @@
+/.vscode/
+/front/
+/scraping/
+/venv/
+.env.local
+.env.*.local
+
+report.html
+report.json

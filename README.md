@@ -17,5 +17,6 @@ python -m venv venv
 (venv) python manage.py runserver
 ```
 
-## その他
-dockerfile, docker-composeは[nginx-proxy](https://github.com/jwilder/nginx-proxy)と[docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)のコンテナが立ち上がっている前提の内容になっています。
+## プロダクションビルド
+dockerつこてください  
+※ dockerfile, docker-composeは[nginx-proxy](https://github.com/jwilder/nginx-proxy)と[docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)のコンテナが立ち上がっている前提の内容になっています。

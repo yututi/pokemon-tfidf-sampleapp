@@ -10,12 +10,12 @@ export default new Router({
     {
         path: '/',
         name: 'アプリ',
-        component: () => import(/* webpackChunkName: "about" */ './pages/Home.vue')
+        component: () => import('./pages/Home.vue')
     },
     {
         path: '/pokemon',
         name: 'ポケモン検索',
-        component: () => import(/* webpackChunkName: "about" */ './pages/Pokemon.vue')
+        component: () => import('./pages/Pokemon.vue')
     },
   ]
 })
