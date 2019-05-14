@@ -30,7 +30,6 @@ services:
       - LETSENCRYPT_HOST
       - LETSENCRYPT_EMAIL
     volumes:
-      - ./back:/back
       - appstatic:/app/static
     # links:
       # - db
@@ -38,9 +37,11 @@ services:
       # - db
     restart: always
 
-# volumes:
+volumes:
 #   dbdata:
 #     external: true
+    appstatic:
+      external: true
 
 networks:
   default:

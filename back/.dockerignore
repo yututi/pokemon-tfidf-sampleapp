@@ -1,9 +1,5 @@
-/.vscode/
-/front/
-/scraping/
 /venv/
-.env.local
-.env.*.local
+.env.sample
 
 report.html
 report.json

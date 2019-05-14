@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+# データ準備
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 with open(os.path.join(base_dir, "data/pokemon_scraped_data.json"), encoding="utf-8") as f:
@@ -15,8 +16,10 @@ with open(os.path.join(base_dir, "data/pokemon_data.json"), encoding="utf-8") as
 
 no_to_pokedata_dict = {data['no']: data for data in pokemon_data}
 stats_keys = ['hp', 'attack', 'defence', 'spAttack', 'spDefence', 'speed']
-stats_all = [[data['stats'][key] for key in stats_keys] for data in pokemon_data]
+stats_all = [[data['stats'][key] for key in stats_keys]
+             for data in pokemon_data]
 
+# 分かち書き
 tagger = MeCab.Tagger(r"-Owakati")
 tagger.parse('')
 
@@ -26,17 +29,19 @@ for data in pokemon_scraped_data:
     wakati_arr.append(parsed)
 
 # デフォルトのtoken_patternは1文字の単語を無視するので、無視しないようにする
-TOKEN_PATTERN = u'(?u)\\b\\w+\\b'
-vectorizer = TfidfVectorizer(token_pattern=TOKEN_PATTERN)
+vectorizer = TfidfVectorizer(token_pattern=u'(?u)\\b\\w+\\b')
 x_all = vectorizer.fit_transform(wakati_arr)
 
-
+"""
+    あいまい単語検索
+"""
 def fuzzyTermSearch(terms: str):
-    x = vectorizer.transform([tagger.parse(terms)])
+    x = vectorizer.transform([tagger.parse(terms)]
+                             )  # TODO: モデル構築済みのVectorizerはスレッドセーフ？
     similarities = cosine_similarity(x, x_all)[0]
 
     found = []
-    # 類似度昇順に並び替え、上位10件を抽出
+    # 類似度降順に並び替え、上位10件を抽出
     top_indices = np.argsort(similarities)[::-1][:10]
     for index in top_indices:
         if(similarities[index] > 0):
@@ -45,11 +50,13 @@ def fuzzyTermSearch(terms: str):
 
     return found
 
+"""
+    種族値類似検索
+"""
 def searchSimilarStats(argStats):
     stats = [int(argStats[key]) for key in stats_keys]
-    print(stats)
     similarities = cosine_similarity([stats], stats_all)[0]
-    # 類似度昇順に並び替え、上位10件を抽出
+    # 類似度降順に並び替え、上位10件を抽出
     top_indices = np.argsort(similarities)[::-1][:10]
     found = []
     for index in top_indices:

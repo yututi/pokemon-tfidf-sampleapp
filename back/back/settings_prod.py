@@ -17,4 +17,5 @@ DATABASES = {
     }
 }
 
+# dockerのvolumeを指定
 STATIC_ROOT = '/app/static'

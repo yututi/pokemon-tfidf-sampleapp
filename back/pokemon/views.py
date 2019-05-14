@@ -4,9 +4,6 @@ from rest_framework.response import Response
 
 from .pokemon_service import fuzzyTermSearch, searchSimilarStats
 
-def index(req):
-    return render(req, 'pokemon.html')
-
 class FuzzyTermSearchView(APIView):
     def get(self, req):
         query_string = req.GET['query']
