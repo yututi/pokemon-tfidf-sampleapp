@@ -8,6 +8,6 @@ location ^~ /.well-known/acme-challenge/ {
 }
 ## End of configuration add by letsencrypt container
 
-location /static/ {
+location /assets/ {
     alias /app/static/;
 }
