@@ -18,4 +18,4 @@ DATABASES = {
 }
 
 # dockerのvolumeを指定
-STATIC_ROOT = '/app/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')

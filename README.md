@@ -13,7 +13,7 @@ npm run build
 cd {PROJECT_ROOT}/back
 python -m venv venv
 .\venv\Scripts\activate
-(venv) pip install -r requirements.txt
+(venv) pip install -r requirements/dev.txt
 (venv) python manage.py runserver
 ```
 
