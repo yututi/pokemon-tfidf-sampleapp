@@ -58,11 +58,8 @@ export default class StatsSearch extends Vue {
   spDef: number = 100;
   speed: number = 100;
   pokeList: Array<Pokemon> = [];
-
-  _debouncedFetch!:Function;
-
   onInput() {
-    this._debouncedFetch();
+    this.debouncedFetch();
   }
   async fetchPokeList() {
     const response = await axios
@@ -78,12 +75,12 @@ export default class StatsSearch extends Vue {
       });
     this.pokeList = response.data;
   }
+  debouncedFetch = debounce(this.fetchPokeList, 200)
   getUri(pokemon: Pokemon): string {
     const no = ("000" + pokemon.no).slice(-3);
     return `/assets/pokemon/${no}.jpg`;
   }
   mounted() {
-    this._debouncedFetch = debounce(this.fetchPokeList, 200);
     this.fetchPokeList();
   }
 }

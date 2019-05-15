@@ -34,9 +34,8 @@ export default class TermSearch extends Vue {
   query: string = "";
   pokeList: Array<Pokemon> = [];
   _window!: Window;
-  _debouncedFetch!: Function;
   onInput() {
-    this._debouncedFetch();
+    this.debouncedFetch();
   }
   async fetchPokeList() {
     if (!this.query) {
@@ -51,12 +50,12 @@ export default class TermSearch extends Vue {
       });
     this.pokeList = response.data;
   }
+  debouncedFetch = debounce(this.fetchPokeList, 300);
   getUri(pokemon: Pokemon): string {
     const no = ("000" + pokemon.no).slice(-3);
     return `/assets/pokemon/${no}.jpg`;
   }
   mounted() {
-    this._debouncedFetch = debounce(this.fetchPokeList, 500);
     this._window = window;
   }
 }

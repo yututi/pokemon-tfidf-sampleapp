@@ -1,14 +1,14 @@
 <template>
   <v-app>
     <v-tabs v-model="tab" dark slider-color="orange">
-      <v-tab ripple href="#aimai">あいまい</v-tab>
-      <v-tab ripple href="#shuzoku">種族値</v-tab>
+      <v-tab ripple href="#fuzzy">あいまい</v-tab>
+      <v-tab ripple href="#stats">種族値</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <v-tab-item value="aimai">
+      <v-tab-item value="fuzzy">
         <term-search></term-search>
       </v-tab-item>
-      <v-tab-item value="shuzoku">
+      <v-tab-item value="stats">
         <stats-search></stats-search>
       </v-tab-item>
     </v-tabs-items>
@@ -27,6 +27,6 @@ import { Component, Vue } from "vue-property-decorator";
   }
 })
 export default class Pokemon extends Vue {
-  tab: string = "aimai";
+  tab: string = "fuzzy";
 }
 </script>
