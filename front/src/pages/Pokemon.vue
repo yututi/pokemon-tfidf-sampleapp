@@ -16,14 +16,12 @@
 </template>
 
 <script lang="ts">
-import StatsSearch from "@/components/StatsSearch.vue";
-import TermSearch from "@/components/TermSearch.vue";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    StatsSearch,
-    TermSearch
+    StatsSearch:()=> import("@/components/StatsSearch.vue"),
+    TermSearch:()=>import("@/components/TermSearch.vue")
   }
 })
 export default class Pokemon extends Vue {

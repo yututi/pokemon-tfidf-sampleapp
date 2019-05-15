@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import { Pokemon } from "@/types";
 import axios from "axios";
 
