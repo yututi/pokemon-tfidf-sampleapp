@@ -16,8 +16,7 @@ with open(os.path.join(base_dir, "data/pokemon_data.json"), encoding="utf-8") as
 
 no_to_pokedata_dict = {data['no']: data for data in pokemon_data}
 stats_keys = ['hp', 'attack', 'defence', 'spAttack', 'spDefence', 'speed']
-stats_all = [[data['stats'][key] for key in stats_keys]
-             for data in pokemon_data]
+stats_all = [[data['stats'][key] for key in stats_keys] for data in pokemon_data]
 
 # 分かち書き
 tagger = MeCab.Tagger(r"-Owakati")
@@ -36,8 +35,7 @@ x_all = vectorizer.fit_transform(wakati_arr)
     あいまい単語検索
 """
 def fuzzyTermSearch(terms: str):
-    x = vectorizer.transform([tagger.parse(terms)]
-                             )  # TODO: モデル構築済みのVectorizerはスレッドセーフ？
+    x = vectorizer.transform([tagger.parse(terms)])  # TODO: モデル構築済みのVectorizerはスレッドセーフ？
     similarities = cosine_similarity(x, x_all)[0]
 
     found = []
