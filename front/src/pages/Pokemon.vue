@@ -4,7 +4,7 @@
       <v-tab ripple href="#fuzzy">あいまい</v-tab>
       <v-tab ripple href="#stats">種族値</v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tab">
+    <v-tabs-items v-model="tab" touchless>
       <v-tab-item value="fuzzy">
         <term-search></term-search>
       </v-tab-item>
