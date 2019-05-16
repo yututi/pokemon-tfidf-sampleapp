@@ -31,7 +31,7 @@
       </v-flex>
       <v-flex xs12 md6>
         <v-subheader>検索結果</v-subheader>
-        <poke-card v-for="(pokemon, index) in pokeList" :key="index" :pokemon="pokemon"/>
+        <poke-card v-for="(pokemon, index) in pokeList" :key="index" :pokemon="pokemon" :show-stats="true"/>
       </v-flex>
     </v-layout>
   </v-container>
