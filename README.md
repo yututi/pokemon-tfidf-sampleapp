@@ -16,18 +16,13 @@ root/
 
 ## ローカルで起動する場合
 ### 前提条件
+- OSがWindows (開発用のpython依存関係にwindows用のライブラリがあるため)
 - 以下がインストール済
     - python3
     - node.js
     - Mecab ※インストール時の文字コードにutf-8を指定してください  
 ### 手順
-1. フロントエンドのコードをビルドする(back配下に静的ファイルを出力)
-    ```cmd
-    cd {PROJECT_ROOT}/front
-    npm install
-    npm run build
-    ```
-1. サーバを立ち上げる(開発者モード)
+1. development modeでdjangoサーバ立ち上げ
     ```cmd
     cd {PROJECT_ROOT}/back
     python -m venv venv
@@ -35,7 +30,13 @@ root/
     (venv) pip install -r requirements/dev.txt
     (venv) python manage.py runserver
     ```
-    ※開発者モードはwindows上でのみ動作します。(pythonの依存にwindows用のライブラリがあるため)  
+    ※development modeは  
+1. webpack-dev-server立ち上げ
+    ```cmd
+    cd {PROJECT_ROOT}/front
+    npm install
+    npm run serve
+    ```
 
 ## デプロイ
 ### 前提条件
@@ -43,7 +44,12 @@ root/
 - 独自ドメイン取得済み
 
 ### 手順
-1. ローカルでfrontをビルド
+1. ローカルで以下のコマンドを実行します。
+    ```
+    cd {PROJECT_ROOT}/front
+    npm install
+    npm run build
+    ```
 1. `back`下の`.env.sample`ファイルを`.env`に書き換えます。
 1. 書き換えた`.env`ファイル内のプロパティを書き換えます。  
     `www.hoge.com`->独自ドメイン  
