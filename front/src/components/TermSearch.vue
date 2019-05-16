@@ -7,17 +7,7 @@
       </v-flex>
       <v-flex xs12>
         <v-subheader>検索結果</v-subheader>
-        <v-card
-          style="cursor:pointer;"
-          v-for="(pokemon, index) in pokeList"
-          :key="index"
-          @click="_window.open(`http://pokemon-wiki.net/${pokemon.name}`);"
-        >
-          <v-avatar :tile="false">
-            <img :src="getUri(pokemon)" alt="404">
-          </v-avatar>
-          {{pokemon.name}}
-        </v-card>
+        <poke-card v-for="(pokemon, index) in pokeList" :key="index" :pokemon="pokemon"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -29,7 +19,11 @@ import debounce from "lodash/debounce";
 import { Pokemon } from "@/types";
 import axios from "axios";
 
-@Component
+@Component({
+  components: {
+    PokeCard: () => import("./PokeCard.vue")
+  }
+})
 export default class TermSearch extends Vue {
   query: string = "";
   pokeList: Array<Pokemon> = [];
@@ -42,19 +36,14 @@ export default class TermSearch extends Vue {
       this.pokeList = [];
       return;
     }
-    const response = await axios
-      .get("pokemon/fuzzyTerm", {
-        params: {
-          query: this.query
-        }
-      });
+    const response = await axios.get("pokemon/fuzzyTerm", {
+      params: {
+        query: this.query
+      }
+    });
     this.pokeList = response.data;
   }
   debouncedFetch = debounce(this.fetchPokeList, 300);
-  getUri(pokemon: Pokemon): string {
-    const no = ("000" + pokemon.no).slice(-3);
-    return `/assets/pokemon/${no}.jpg`;
-  }
   mounted() {
     this._window = window;
   }

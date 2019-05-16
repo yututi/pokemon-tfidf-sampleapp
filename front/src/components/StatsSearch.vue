@@ -31,12 +31,7 @@
       </v-flex>
       <v-flex xs12 md6>
         <v-subheader>検索結果</v-subheader>
-        <v-card v-for="(pokemon, index) in pokeList" :key="index">
-          <v-avatar :tile="false">
-            <img :src="getUri(pokemon)" alt="404">
-          </v-avatar>
-          {{pokemon.name}}
-        </v-card>
+        <poke-card v-for="(pokemon, index) in pokeList" :key="index" :pokemon="pokemon"/>
       </v-flex>
     </v-layout>
   </v-container>
@@ -48,8 +43,11 @@ import debounce from "lodash/debounce";
 import { Pokemon } from "@/types";
 import axios from "axios";
 
-
-@Component
+@Component({
+    components:{
+        PokeCard: () => import("./PokeCard.vue")
+    }
+})
 export default class StatsSearch extends Vue {
   hp: number = 100;
   attack: number = 100;
