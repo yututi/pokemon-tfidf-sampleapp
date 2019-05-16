@@ -30,7 +30,6 @@ root/
     (venv) pip install -r requirements/dev.txt
     (venv) python manage.py runserver
     ```
-    ※development modeは  
 1. webpack-dev-server立ち上げ
     ```cmd
     cd {PROJECT_ROOT}/front
