@@ -1,43 +1,44 @@
 <template>
-  <v-card
+  <div
     class="poke-card"
-    :class="{'show-stats':showStats && isHovered}"
+    :class="{'show-stats':showStats && isHovered, 'elevation-2':isHovered }"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
+    @click="openWiki(pokemon.name, pokemon.evolutions)"
   >
     <v-avatar :tile="false">
       <img :src="getUri(pokemon)" alt="404">
     </v-avatar>
     <div class="poke-card-body">
-      <label class="text-center">{{pokemon.name}}</label>
-      <div v-if="showStats" class="stats">
+      <label class="poke-label">{{pokemon.name}}</label>
+      <div v-if="showStats" class="stats accent">
         <div class="poke-stat">
           <div class="stat-label">HP</div>
-          <div>{{pokemon.stats.hp}}</div>
+          <div class="stat-value">{{pokemon.stats.hp}}</div>
         </div>
         <div class="poke-stat">
           <div class="stat-label">こうげき</div>
-          <div>{{pokemon.stats.attack}}</div>
+          <div class="stat-value">{{pokemon.stats.attack}}</div>
         </div>
         <div class="poke-stat">
           <div class="stat-label">ぼうぎょ</div>
-          <div>{{pokemon.stats.defence}}</div>
+          <div class="stat-value">{{pokemon.stats.defence}}</div>
         </div>
         <div class="poke-stat">
           <div class="stat-label">とくこう</div>
-          <div>{{pokemon.stats.spAttack}}</div>
+          <div class="stat-value">{{pokemon.stats.spAttack}}</div>
         </div>
         <div class="poke-stat">
           <div class="stat-label">とくぼう</div>
-          <div>{{pokemon.stats.spDefence}}</div>
+          <div class="stat-value">{{pokemon.stats.spDefence}}</div>
         </div>
         <div class="poke-stat">
           <div class="stat-label">すばやさ</div>
-          <div>{{pokemon.stats.speed}}</div>
+          <div class="stat-value">{{pokemon.stats.speed}}</div>
         </div>
       </div>
     </div>
-  </v-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -56,6 +57,17 @@ export default class PokeCard extends Vue {
   getUri(pokemon: Pokemon): string {
     const no = ("000" + pokemon.no).slice(-3);
     return `/assets/pokemon/${no}.jpg`;
+  }
+  openWiki(pokemonName: string, hasEvolution: boolean) {
+    if (!hasEvolution) {
+      // 多分最終進化じゃないとページ作られてない（適当
+      return;
+    }
+    let pokename: string = pokemonName;
+    if (pokename.lastIndexOf("メガ", 0) === 0) {
+      pokename = pokename.substring(2);
+    }
+    window.open("http://pokemon-wiki.net/" + pokename);
   }
 }
 </script>
@@ -76,6 +88,7 @@ export default class PokeCard extends Vue {
       display: flex;
       justify-content: space-around;
       overflow: hidden;
+      transition: width 0.3s ease-out;
     }
   }
 
@@ -90,19 +103,30 @@ export default class PokeCard extends Vue {
   position: relative;
   flex-grow: 1;
   height: 100%;
+  min-width: 30px;
 
   .stat-label {
     position: absolute;
     top: 0;
     left: 0;
-    font-size: 12px;
+    font-size: 10px;
+    padding-left: 0.3em;
+    padding-top: 0.3em;
     font-font-weight: 100;
+  }
+
+  .stat-value {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
   }
 }
 
-.text-center {
-  dispay: flex;
+.poke-label {
+  height: 100%;
+  display: flex;
   align-items: center;
-  justify-content: center;
 }
 </style>
