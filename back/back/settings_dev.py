@@ -4,7 +4,12 @@ from .settings_common import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+# 別ポートからのアクセスを許可
+INSTALLED_APPS.append('corsheaders')
+MIDDLEWARE.append('corsheaders.middleware.CorsMiddleware')
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

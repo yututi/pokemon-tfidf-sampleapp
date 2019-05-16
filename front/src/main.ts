@@ -5,11 +5,15 @@ import App from './App.vue'
 import router from './router'
 
 import axios from 'axios'
-axios.defaults.baseURL = "api"
+if (process.env.NODE_ENV === "production") {
+    axios.defaults.baseURL = "api"
+    Vue.config.productionTip = false
+} else {
+    axios.defaults.baseURL = "http://localhost:8000/api"
+}
 
-Vue.config.productionTip = false
 
 new Vue({
-  router,
-  render: h => h(App)
+    router,
+    render: h => h(App)
 }).$mount('#app')
