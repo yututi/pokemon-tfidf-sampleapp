@@ -7,7 +7,7 @@
       </v-flex>
       <v-flex xs12>
         <v-subheader>検索結果</v-subheader>
-        <poke-card v-for="(pokemon, index) in pokeList" :key="index" :pokemon="pokemon"/>
+        <poke-card v-for="(pokemon, index) in pokeList" :key="index" :pokemon="pokemon" :showWiki="true"/>
       </v-flex>
     </v-layout>
   </v-container>

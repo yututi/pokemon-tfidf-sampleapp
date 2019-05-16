@@ -4,14 +4,14 @@
     :class="{'show-stats':showStats && isHovered, 'elevation-2':isHovered }"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
-    @click="openWiki(pokemon.name, pokemon.evolutions)"
+    @click="openWiki(pokemon.name)"
   >
     <v-avatar :tile="false">
       <img :src="getUri(pokemon)" alt="404">
     </v-avatar>
     <div class="poke-card-body">
       <label class="poke-label">{{pokemon.name}}</label>
-      <div v-if="showStats" class="stats accent">
+      <div v-if="showStats" class="stats primary white--text">
         <div class="poke-stat">
           <div class="stat-label">HP</div>
           <div class="stat-value">{{pokemon.stats.hp}}</div>
@@ -51,6 +51,8 @@ export default class PokeCard extends Vue {
   pokemon!: Pokemon;
   @Prop({ default: false })
   showStats!: boolean;
+  @Prop({ default: false })
+  showWiki!: boolean;
 
   isHovered: boolean = false;
 
@@ -58,9 +60,8 @@ export default class PokeCard extends Vue {
     const no = ("000" + pokemon.no).slice(-3);
     return `/assets/pokemon/${no}.jpg`;
   }
-  openWiki(pokemonName: string, hasEvolution: boolean) {
-    if (!hasEvolution) {
-      // 多分最終進化じゃないとページ作られてない（適当
+  openWiki(pokemonName: string) {
+    if (!this.showWiki) {
       return;
     }
     let pokename: string = pokemonName;
