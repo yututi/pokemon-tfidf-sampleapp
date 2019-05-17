@@ -1,17 +1,11 @@
 <template>
-  <div
-    class="poke-card"
-    :class="{'show-stats':showStats && isHovered, 'elevation-2':isHovered }"
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false"
-    @click="openWiki(pokemon.name)"
-  >
+  <div class="poke-card" @click="openWiki(pokemon.name)">
     <v-avatar :tile="false">
       <img :src="getUri(pokemon)" alt="404">
     </v-avatar>
     <div class="poke-card-body">
       <label class="poke-label">{{pokemon.name}}</label>
-      <div v-if="showStats" class="stats primary white--text">
+      <div v-if="showStats" class="poke-stats primary white--text">
         <div class="poke-stat">
           <div class="stat-label">HP</div>
           <div class="stat-value">{{pokemon.stats.hp}}</div>
@@ -75,12 +69,13 @@ export default class PokeCard extends Vue {
 <style lang="stylus">
 .poke-card {
   display: flex;
+  transition: box-shadow 0.3s ease-out;
 
   .poke-card-body {
     position: relative;
     flex: 1;
 
-    .stats {
+    .poke-stats {
       position: absolute;
       right: 0;
       top: 0;
@@ -90,11 +85,14 @@ export default class PokeCard extends Vue {
       justify-content: space-around;
       overflow: hidden;
       transition: width 0.3s ease-out;
+      will-change: width;
     }
   }
 
-  &.show-stats {
-    .stats {
+  &:hover {
+    box-shadow: 0 1px 3px 1px rgba(50, 50, 50, 0.2);
+
+    .poke-stats {
       width: 100%;
     }
   }
@@ -113,7 +111,7 @@ export default class PokeCard extends Vue {
     font-size: 10px;
     padding-left: 0.3em;
     padding-top: 0.3em;
-    font-font-weight: 100;
+    font-weight: 100;
   }
 
   .stat-value {

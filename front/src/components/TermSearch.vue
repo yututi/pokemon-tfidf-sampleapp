@@ -27,7 +27,6 @@ import axios from "axios";
 export default class TermSearch extends Vue {
   query: string = "";
   pokeList: Array<Pokemon> = [];
-  _window!: Window;
   onInput() {
     this.debouncedFetch();
   }
@@ -44,8 +43,5 @@ export default class TermSearch extends Vue {
     this.pokeList = response.data;
   }
   debouncedFetch = debounce(this.fetchPokeList, 300);
-  mounted() {
-    this._window = window;
-  }
 }
 </script>
