@@ -30,6 +30,7 @@ services:
       - LETSENCRYPT_HOST
       - LETSENCRYPT_EMAIL
     volumes:
+      # TODO docker-compose up -d --buildしてもvolumeの中身が前回ビルド時のままになってる？whitenoise試す
       - appstatic:/app/static
     # links:
       # - db

@@ -12,7 +12,7 @@ import { Component, Vue } from "vue-property-decorator";
 export default class App extends Vue {}
 </script>
 <style lang="stylus">
-#app {
+body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;

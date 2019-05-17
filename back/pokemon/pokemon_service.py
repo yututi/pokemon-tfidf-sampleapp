@@ -31,10 +31,17 @@ for data in pokemon_scraped_data:
 vectorizer = TfidfVectorizer(token_pattern=u'(?u)\\b\\w+\\b')
 x_all = vectorizer.fit_transform(wakati_arr)
 
-"""
-    あいまい単語検索
-"""
 def fuzzyTermSearch(terms: str):
+    """
+        あいまい単語検索
+        Parameters
+        ----------
+        terms : str
+            単語
+        Returns
+        -------
+        単語に類似するポケモンのリスト
+    """
     x = vectorizer.transform([tagger.parse(terms)])  # TODO: モデル構築済みのVectorizerはスレッドセーフ？
     similarities = cosine_similarity(x, x_all)[0]
 
@@ -48,10 +55,18 @@ def fuzzyTermSearch(terms: str):
 
     return found
 
-"""
-    種族値類似検索
-"""
 def searchSimilarStats(argStats):
+    """
+    種族値類似検索
+    Parameters
+    ----------
+    argStats : array of int
+        種族値の配列(HP、こうげき、防御、とくこう、とくぼう、すばやさの順)
+    Returns
+    -------
+    引数の種族値に類似するポケモンのリスト
+    """
+
     stats = [int(argStats[key]) for key in stats_keys]
     similarities = cosine_similarity([stats], stats_all)[0]
     # 類似度降順に並び替え、上位10件を抽出
