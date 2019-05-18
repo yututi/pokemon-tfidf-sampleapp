@@ -21,7 +21,7 @@ root/
 - 以下がインストール済
     - python3
     - node.js
-    - Mecab ※インストール時の文字コードにutf-8を指定してください  
+    - [Mecab](https://taku910.github.io/mecab/) ※インストール時の文字コードにutf-8を指定してください  
 ### 手順
 1. development modeでdjangoサーバ立ち上げ
     ```cmd
