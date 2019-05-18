@@ -9,7 +9,7 @@ location ^~ /.well-known/acme-challenge/ {
 ## End of configuration add by letsencrypt container
 
 gzip on;
-gzip_types  image/png image/gif image/jpeg text/javascript text/css;
+gzip_types  image/png image/gif image/jpeg application/javascript text/css;
 gzip_min_length 1000;
 
 location /assets/ {
