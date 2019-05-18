@@ -37,6 +37,7 @@ root/
     npm install
     npm run serve
     ```
+1. `localhost:8080`にアクセス
 
 ## デプロイ
 ### 前提条件
