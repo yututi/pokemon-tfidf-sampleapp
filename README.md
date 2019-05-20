@@ -55,10 +55,10 @@ root/
 1. 書き換えた`.env`ファイル内のプロパティを書き換えます。  
     `www.hoge.com`->独自ドメイン  
     `hogehoge@gmail.com`->任意のメールアドレス
-1. `back`下の`proxy.sample`フォルダ名を`proxy`に書き換えます。
-1. `back/proxy/conf/`下の`www.hoge.com`ファイルの名前を独自ドメインに書き換えます。
-1. backフォルダをデプロイ環境にコピー
+1. `proxy.sample`フォルダ名を`proxy`に変更
+1. `proxy/conf/`下の`www.hoge.com`ファイルの名前を独自ドメインに書き換えます。
+1. `back`, `proxy`フォルダをデプロイ環境にコピー
 1. デプロイ環境で`docker volume create --name=appstatic`、`docker network create -d bridge proxy`実行
-1. デプロイ環境で`back/proxy.sample`に移動し、`docker-compose up -d`
+1. デプロイ環境で`proxy`に移動し、`docker-compose up -d`
 1. デプロイ環境で`back`に移動し、`docker-compose up -d`
 1. サーバが立ち上がるので、独自ドメインにアクセスしてみてください。
