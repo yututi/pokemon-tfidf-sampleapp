@@ -15,6 +15,7 @@ with open(os.path.join(base_dir, "data/pokemon_data.json"), encoding="utf-8") as
     pokemon_data = json.load(f)
 
 no_to_pokedata_dict = {data['no']: data for data in pokemon_data}
+no_to_pokedesc_dict = {data['no']: data for data in pokemon_scraped_data}
 stats_keys = ['hp', 'attack', 'defence', 'spAttack', 'spDefence', 'speed']
 stats_all = [[data['stats'][key] for key in stats_keys] for data in pokemon_data]
 
@@ -76,3 +77,9 @@ def searchSimilarStats(argStats):
         no = pokemon_data[index]['no']
         found.append(no_to_pokedata_dict[no])
     return found
+
+def search_similar_poke(no:int):
+    """
+    """
+    desc = no_to_pokedesc_dict[no]["desc"]
+    return fuzzyTermSearch(desc)

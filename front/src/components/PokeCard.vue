@@ -1,7 +1,7 @@
 <template>
   <div class="poke-card" @click="openWiki(pokemon.name)">
     <v-avatar :tile="false">
-      <img :src="getUri(pokemon)" alt="404">
+      <img :src="pokemon.getImgUri()" alt="404">
     </v-avatar>
     <div class="poke-card-body">
       <label class="poke-label">{{pokemon.name}}</label>
@@ -41,19 +41,13 @@ import { Pokemon } from "@/types";
 
 @Component
 export default class PokeCard extends Vue {
-  @Prop()
+  @Prop({type:Pokemon})
   pokemon!: Pokemon;
   @Prop({ default: false })
   showStats!: boolean;
   @Prop({ default: false })
   showWiki!: boolean;
 
-  isHovered: boolean = false;
-
-  getUri(pokemon: Pokemon): string {
-    const no = ("000" + pokemon.no).slice(-3);
-    return `/assets/pokemon/${no}.jpg`;
-  }
   openWiki(pokemonName: string) {
     if (!this.showWiki) {
       return;
@@ -70,6 +64,7 @@ export default class PokeCard extends Vue {
 .poke-card {
   display: flex;
   transition: box-shadow 0.3s ease-out;
+  cursor: pointer;
 
   .poke-card-body {
     position: relative;

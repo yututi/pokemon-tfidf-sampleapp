@@ -1,11 +1,11 @@
 # サンプルアプリケーション
 
-### [デモ](https://apps.yu-tsuchiya.me/)(6/10に消えます)
+### [デモ](https://apps.yu-tsuchiya.me/)
 
 ## アプリケーション一覧
 - ポケモン検索  
     TF-IDF計算、cos類似法を使ったあいまい単語検索、種族値の類似検索機能  
-    ロジックは`back/pokemon/pokemon_service.py`にあります。
+    ロジックは`back/pokemon/pokemon_service.py`にあります。  
 
 ### ディレクトリ構成
 ```
@@ -23,7 +23,7 @@ root/
     - node.js
     - [Mecab](https://taku910.github.io/mecab/) ※インストール時の文字コードにutf-8を指定してください  
 ### 手順
-1. development modeでdjangoサーバ立ち上げ
+1. development modeでdjangoサーバ立ち上げ(`localhost:8000`)
     ```cmd
     cd {PROJECT_ROOT}/back
     python -m venv venv
@@ -31,7 +31,7 @@ root/
     (venv) pip install -r requirements/dev.txt
     (venv) python manage.py runserver
     ```
-1. webpack-dev-server立ち上げ
+1. webpack-dev-server立ち上げ(`localhost:8080`)
     ```cmd
     cd {PROJECT_ROOT}/front
     npm install
@@ -41,11 +41,11 @@ root/
 
 ## デプロイ
 ### 前提条件
-- デプロイ環境にdocker, docker-composeインストール済み
+- 運用環境にdocker, docker-composeインストール済み
 - 独自ドメイン取得済み
 
 ### 手順
-1. ローカルで以下のコマンドを実行します。
+1. ローカルで以下のコマンドを実行します。(`back`配下にファイルがビルドされます。)
     ```
     cd {PROJECT_ROOT}/front
     npm install
@@ -53,12 +53,12 @@ root/
     ```
 1. `back`下の`.env.sample`ファイルを`.env`に書き換えます。
 1. 書き換えた`.env`ファイル内のプロパティを書き換えます。  
-    `www.hoge.com`->独自ドメイン  
+    `www.hoge.com`->独自ドメイン+任意のサブドメイン(以下ドメイン)
     `hogehoge@gmail.com`->任意のメールアドレス
 1. `proxy.sample`フォルダ名を`proxy`に変更
-1. `proxy/conf/`下の`www.hoge.com`ファイルの名前を独自ドメインに書き換えます。
+1. `proxy/conf/`下の`www.hoge.com`ファイルの名前をドメインに書き換えます。
 1. `back`, `proxy`フォルダをデプロイ環境にコピー
-1. デプロイ環境で`docker volume create --name=appstatic`、`docker network create -d bridge proxy`実行
-1. デプロイ環境で`proxy`に移動し、`docker-compose up -d`
-1. デプロイ環境で`back`に移動し、`docker-compose up -d`
-1. サーバが立ち上がるので、独自ドメインにアクセスしてみてください。
+1. 運用環境で`docker volume create --name=appstatic`、`docker network create -d bridge proxy`実行
+1. 運用環境で`proxy`に移動し、`docker-compose up -d`
+1. 運用環境で`back`に移動し、`docker-compose up -d`
+1. サーバが立ち上がるので、ドメインにアクセスしてみてください。

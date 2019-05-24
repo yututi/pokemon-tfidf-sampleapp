@@ -74,10 +74,6 @@ export default class StatsSearch extends Vue {
     this.pokeList = response.data;
   }
   debouncedFetch = debounce(this.fetchPokeList, 200)
-  getUri(pokemon: Pokemon): string {
-    const no = ("000" + pokemon.no).slice(-3);
-    return `/assets/pokemon/${no}.jpg`;
-  }
   mounted() {
     this.fetchPokeList();
   }

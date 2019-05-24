@@ -7,9 +7,16 @@
       </v-flex>
       <v-flex xs12>
         <v-subheader>検索結果</v-subheader>
-        <poke-card v-for="(pokemon, index) in pokeList" :key="index" :pokemon="pokemon" :showWiki="true"/>
+        <poke-card
+          v-for="(pokemon, index) in pokeList"
+          :key="index"
+          :pokemon="pokemon"
+          :showWiki="true"
+          @click="showDialog(pokemon)"
+        />
       </v-flex>
     </v-layout>
+    <poke-detail-dialog ref="dialog"/>
   </v-container>
 </template>
 
@@ -21,7 +28,8 @@ import axios from "axios";
 
 @Component({
   components: {
-    PokeCard: () => import("./PokeCard.vue")
+    PokeCard: () => import("./PokeCard.vue"),
+    PokeDetailDialog: () => import("./PokeDetailDialog.vue")
   }
 })
 export default class TermSearch extends Vue {
@@ -43,5 +51,9 @@ export default class TermSearch extends Vue {
     this.pokeList = response.data;
   }
   debouncedFetch = debounce(this.fetchPokeList, 300);
+  showDialog(pokemon: Pokemon) {
+    const dialog: any = this.$refs.dialog;
+    dialog.open(pokemon);
+  }
 }
 </script>
