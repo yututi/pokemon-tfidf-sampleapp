@@ -71,7 +71,7 @@ export default class StatsSearch extends Vue {
           speed: this.speed
         }
       });
-    this.pokeList = response.data;
+    this.pokeList = response.data.map((d: any) => new Pokemon(d));
   }
   debouncedFetch = debounce(this.fetchPokeList, 200)
   mounted() {

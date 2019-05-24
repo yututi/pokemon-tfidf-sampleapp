@@ -1,5 +1,5 @@
 <template>
-  <div class="poke-card" @click="openWiki(pokemon.name)">
+  <div class="poke-card" @click="$emit('click', pokemon)">
     <v-avatar :tile="false">
       <img :src="pokemon.getImgUri()" alt="404">
     </v-avatar>
@@ -48,16 +48,16 @@ export default class PokeCard extends Vue {
   @Prop({ default: false })
   showWiki!: boolean;
 
-  openWiki(pokemonName: string) {
-    if (!this.showWiki) {
-      return;
-    }
-    let pokename: string = pokemonName;
-    if (pokename.lastIndexOf("メガ", 0) === 0) {
-      pokename = pokename.substring(2);
-    }
-    window.open("http://pokemon-wiki.net/" + pokename);
-  }
+//   openWiki(pokemonName: string) {
+//     if (!this.showWiki) {
+//       return;
+//     }
+//     let pokename: string = pokemonName;
+//     if (pokename.lastIndexOf("メガ", 0) === 0) {
+//       pokename = pokename.substring(2);
+//     }
+//     window.open("http://pokemon-wiki.net/" + pokename);
+//   }
 }
 </script>
 <style lang="stylus">

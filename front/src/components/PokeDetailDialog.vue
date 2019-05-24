@@ -1,6 +1,6 @@
 <template>
-  <v-dialog v-model="isOpen">
-    <v-card class="white--primary">
+  <v-dialog v-model="isOpen" max-width="1000">
+    <v-card v-if="isOpen" class="white--primary">
       <v-layout>
         <v-flex xs5>
           <v-img :src="pokemon.getImgUri()" height="125px" contain></v-img>
@@ -17,7 +17,7 @@
       </v-layout>
       <v-divider light></v-divider>
       <v-card-actions class="pa-3">
-          <v-button @click="close">close</v-button>
+          <v-btn @click="close">close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

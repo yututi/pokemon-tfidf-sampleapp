@@ -12,7 +12,7 @@
           :key="index"
           :pokemon="pokemon"
           :showWiki="true"
-          @click="showDialog(pokemon)"
+          @click="showDialog"
         />
       </v-flex>
     </v-layout>
@@ -48,7 +48,7 @@ export default class TermSearch extends Vue {
         query: this.query
       }
     });
-    this.pokeList = response.data;
+    this.pokeList = response.data.map((d: any) => new Pokemon(d));
   }
   debouncedFetch = debounce(this.fetchPokeList, 300);
   showDialog(pokemon: Pokemon) {
