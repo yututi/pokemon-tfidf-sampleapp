@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-lg>
-    <div class="display-3 text-xs-center mb-3">あいまい単語検索</div>
+    <div class="display-3 text-xs-center mb-3">全文検索</div>
     <v-layout row wrap style="max-width:600px;margin:auto;">
       <v-flex xs12>
         <v-text-field v-model="query" label="検索条件" required @input="onInput"></v-text-field>

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-tabs v-model="tab" dark slider-color="orange">
-      <v-tab ripple href="#fuzzy">あいまい</v-tab>
+      <v-tab ripple href="#fuzzy">全文</v-tab>
       <v-tab ripple href="#stats">種族値</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab" touchless>
