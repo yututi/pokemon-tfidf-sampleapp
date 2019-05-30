@@ -31,25 +31,25 @@ for data in pokemon_scraped_data:
 vectorizer = TfidfVectorizer(token_pattern=u'(?u)\\b\\w+\\b')
 x_all = vectorizer.fit_transform(wakati_arr)
 
-def fuzzyTermSearch(terms: str):
+def fuzzyTermSearch(query: str):
     """
-        あいまい単語検索
+        全文検索
         Parameters
         ----------
-        terms : str
-            単語
+        query : str
+            クエリ
         Returns
         -------
         単語に類似するポケモンのリスト
     """
-    x = vectorizer.transform([tagger.parse(terms)])  # TODO: モデル構築済みのVectorizerはスレッドセーフ？
+    x = vectorizer.transform([tagger.parse(query)])  # TODO: モデル構築済みのVectorizerはスレッドセーフ？
     similarities = cosine_similarity(x, x_all)[0]
 
     found = []
     # 類似度降順に並び替え、上位10件を抽出
     top_indices = np.argsort(similarities)[::-1][:10]
     for index in top_indices:
-        if(similarities[index] > 0):
+        if similarities[index] > 0:
             no = pokemon_scraped_data[index]['no']
             found.append(no_to_pokedata_dict[no])
 

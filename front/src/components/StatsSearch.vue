@@ -31,7 +31,12 @@
       </v-flex>
       <v-flex xs12 md6>
         <v-subheader>検索結果</v-subheader>
-        <poke-card v-for="(pokemon, index) in pokeList" :key="index" :pokemon="pokemon" :show-stats="true"/>
+        <poke-card
+          v-for="(pokemon, index) in pokeList"
+          :key="index"
+          :pokemon="pokemon"
+          :show-stats="true"
+        />
       </v-flex>
     </v-layout>
   </v-container>
@@ -44,9 +49,9 @@ import { Pokemon } from "@/types";
 import axios from "axios";
 
 @Component({
-    components:{
-        PokeCard: () => import("./PokeCard.vue")
-    }
+  components: {
+    PokeCard: () => import("./PokeCard.vue")
+  }
 })
 export default class StatsSearch extends Vue {
   hp: number = 100;
@@ -60,20 +65,19 @@ export default class StatsSearch extends Vue {
     this.debouncedFetch();
   }
   async fetchPokeList() {
-    const response = await axios
-      .get("pokemon/similarStats", {
-        params: {
-          hp: this.hp,
-          attack: this.attack,
-          defence: this.defence,
-          spAttack: this.spAtk,
-          spDefence: this.spDef,
-          speed: this.speed
-        }
-      });
+    const response = await axios.get("pokemon/similarStats", {
+      params: {
+        hp: this.hp,
+        attack: this.attack,
+        defence: this.defence,
+        spAttack: this.spAtk,
+        spDefence: this.spDef,
+        speed: this.speed
+      }
+    });
     this.pokeList = response.data;
   }
-  debouncedFetch = debounce(this.fetchPokeList, 200)
+  debouncedFetch = debounce(this.fetchPokeList, 100, { maxWait: 300 });
   getUri(pokemon: Pokemon): string {
     const no = ("000" + pokemon.no).slice(-3);
     return `/assets/pokemon/${no}.jpg`;

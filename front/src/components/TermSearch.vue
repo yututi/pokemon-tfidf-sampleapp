@@ -42,6 +42,6 @@ export default class TermSearch extends Vue {
     });
     this.pokeList = response.data;
   }
-  debouncedFetch = debounce(this.fetchPokeList, 300);
+  debouncedFetch = debounce(this.fetchPokeList, 100);
 }
 </script>
